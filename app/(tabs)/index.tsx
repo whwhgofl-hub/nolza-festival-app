@@ -199,7 +199,7 @@ export default function HomeScreen() {
                   style={{
                     fontSize: 16,
                     fontWeight: '700',
-                    color: colors.foreground,
+                    color: '#FFFFFF',
                   }}
                 >
                   크루 광장
@@ -207,7 +207,7 @@ export default function HomeScreen() {
                 <Text
                   style={{
                     fontSize: 12,
-                    color: colors.muted,
+                    color: '#E0E0E0',
                     marginTop: 2,
                   }}
                 >
@@ -257,7 +257,7 @@ export default function HomeScreen() {
                 style={{
                   fontSize: 16,
                   fontWeight: '700',
-                  color: colors.foreground,
+                  color: '#FFFFFF',
                 }}
               >
                 크루 공동 게이지

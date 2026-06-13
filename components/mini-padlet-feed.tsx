@@ -55,7 +55,7 @@ export function MiniPadletFeed({ posts, onViewAll }: MiniPadletFeedProps) {
             style={{
               fontSize: 18,
               fontWeight: '700',
-              color: colors.foreground,
+              color: '#FFFFFF',
             }}
           >
             노른자 수사대
@@ -71,7 +71,7 @@ export function MiniPadletFeed({ posts, onViewAll }: MiniPadletFeedProps) {
             style={{
               fontSize: 14,
               fontWeight: '600',
-              color: colors.primary,
+              color: '#FFD700',
             }}
           >
             더보기 →
