@@ -6,7 +6,7 @@ import { MiniPadletFeed } from '@/components/mini-padlet-feed';
 import { CrewCard } from '@/components/crew-card';
 import { SharedGauge } from '@/components/shared-gauge';
 import { FestivalBadgeGrid } from '@/components/festival-badge-grid';
-import { ChatFab } from '@/components/chat-fab';
+import { ChatFAB as ChatFab } from '@/components/chat-fab';
 import { ChatModal } from '@/components/chat-modal';
 import { useState } from 'react';
 import { useGamificationStore } from '@/lib/gamification-store';
@@ -75,7 +75,7 @@ const CATEGORIES = [
 export default function HomeScreen() {
   const [isChatOpen, setIsChatOpen] = useState(false);
   const sharedGaugeProgress = useGamificationStore(
-    (state) => state.sharedGaugeProgress
+    (state) => state.userStats.gaugeProgress
   );
 
   return (

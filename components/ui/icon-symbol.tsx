@@ -18,7 +18,11 @@ const MAPPING = {
   "paperplane.fill": "send",
   "chevron.left.forwardslash.chevron.right": "code",
   "chevron.right": "chevron-right",
-} as IconMapping;
+  "magnifyingglass": "search",
+  "person.2.fill": "people",
+  "chart.bar.fill": "bar-chart",
+  "star.fill": "star",
+} as const satisfies Partial<IconMapping>;
 
 /**
  * An icon component that uses native SF Symbols on iOS, and Material Icons on Android and web.
