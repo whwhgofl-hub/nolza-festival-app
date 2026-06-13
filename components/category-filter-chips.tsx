@@ -52,9 +52,9 @@ export function CategoryFilterChips({
               width: 72,
               height: 30,
               borderRadius: 15,
-              backgroundColor: isSelected ? colors.primary : colors.surface,
+              backgroundColor: isSelected ? '#FFD700' : colors.surface,
               borderWidth: 1,
-              borderColor: isSelected ? colors.primary : colors.border,
+              borderColor: isSelected ? '#FFD700' : colors.border,
               opacity: pressed ? 0.8 : 1,
               flexDirection: 'row',
               alignItems: 'center',
@@ -67,7 +67,7 @@ export function CategoryFilterChips({
               style={{
                 fontSize: 11,
                 fontWeight: isSelected ? '600' : '500',
-                color: isSelected ? colors.background : colors.foreground,
+                color: isSelected ? '#333333' : colors.foreground,
               }}
             >
               {category.label}
