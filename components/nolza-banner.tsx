@@ -51,9 +51,9 @@ export function NolzaBanner({ message, timestamp }: NolzaBannerProps) {
       >
         <Text
           style={{
-            color: colors.background,
+            color: colors.foreground,
             fontSize: 14,
-            fontWeight: '600',
+            fontWeight: '700',
             letterSpacing: 0.5,
           }}
           numberOfLines={1}

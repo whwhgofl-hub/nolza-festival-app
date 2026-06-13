@@ -40,11 +40,11 @@ export function CrewCard({
   const getCategoryColor = () => {
     switch (category) {
       case 'carshare':
-        return colors.info;
+        return colors.primary;
       case 'companion':
         return colors.primary;
       default:
-        return colors.muted;
+        return colors.primary;
     }
   };
 

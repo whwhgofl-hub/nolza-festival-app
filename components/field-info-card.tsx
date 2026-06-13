@@ -162,16 +162,16 @@ export function FieldInfoCard({
             paddingHorizontal: 12,
             borderRadius: 8,
             backgroundColor: isHelpPressed ? colors.primary : colors.surface,
-            borderWidth: isHelpPressed ? 0 : 1,
-            borderColor: colors.border,
+            borderWidth: 2,
+            borderColor: isHelpPressed ? colors.primary : colors.border,
             opacity: pressed ? 0.8 : 1,
           })}
         >
           <Text
             style={{
               fontSize: 13,
-              fontWeight: '600',
-              color: isHelpPressed ? colors.background : colors.foreground,
+              fontWeight: '700',
+              color: isHelpPressed ? colors.foreground : colors.foreground,
             }}
           >
             {isHelpPressed ? '✓ 도움이 되었어요!' : '👍 도움이 되었어요!'}

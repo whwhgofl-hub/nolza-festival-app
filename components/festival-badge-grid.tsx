@@ -96,7 +96,7 @@ export function FestivalBadgeGrid({
                   fontSize: 11,
                   fontWeight: '700',
                   color: festival.isActive
-                    ? colors.background
+                    ? colors.foreground
                     : colors.foreground,
                   textAlign: 'center',
                 }}

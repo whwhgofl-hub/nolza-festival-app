@@ -41,8 +41,9 @@ export function ChatBubble({ message, sender, timestamp }: ChatBubbleProps) {
         <Text
           style={{
             fontSize: 14,
-            color: isUser ? colors.background : colors.foreground,
+            color: isUser ? colors.foreground : colors.foreground,
             lineHeight: 20,
+            fontWeight: isUser ? '600' : '500',
           }}
         >
           {message}

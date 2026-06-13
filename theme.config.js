@@ -1,29 +1,29 @@
 /** @type {const} */
 const themeColors = {
-  // 야놀자 시그니처 블루 그라디언트
-  primary: { light: '#0052FF', dark: '#0052FF' },
-  primaryLight: { light: '#E6F4FE', dark: '#1a3a5c' },
-  primaryGradientStart: { light: '#0052FF', dark: '#0052FF' },
-  primaryGradientEnd: { light: '#0078FF', dark: '#0078FF' },
+  // 노란색 시그니처 - 고가독성
+  primary: { light: '#FFD700', dark: '#FFD700' },
+  primaryLight: { light: '#FFFACD', dark: '#FFD700' },
+  primaryGradientStart: { light: '#FFD700', dark: '#FFD700' },
+  primaryGradientEnd: { light: '#FFC700', dark: '#FFC700' },
   
-  // 배경 및 표면
-  background: { light: '#FFFFFF', dark: '#0F0F0F' },
-  surface: { light: '#F5F5F5', dark: '#1A1A1A' },
-  surfaceSecondary: { light: '#FAFAFA', dark: '#252525' },
+  // 배경 및 표면 - 흰색 기반
+  background: { light: '#FFFFFF', dark: '#FFFFFF' },
+  surface: { light: '#F9F9F9', dark: '#F9F9F9' },
+  surfaceSecondary: { light: '#F0F0F0', dark: '#F0F0F0' },
   
-  // 텍스트
-  foreground: { light: '#333333', dark: '#EEEEEE' },
-  muted: { light: '#666666', dark: '#999999' },
+  // 텍스트 - 검은색 기반 (고가독성)
+  foreground: { light: '#1A1A1A', dark: '#1A1A1A' },
+  muted: { light: '#555555', dark: '#555555' },
   
   // 테두리 및 구분선
-  border: { light: '#E5E5E5', dark: '#333333' },
-  borderLight: { light: '#F0F0F0', dark: '#2a2a2a' },
+  border: { light: '#E0E0E0', dark: '#E0E0E0' },
+  borderLight: { light: '#F0F0F0', dark: '#F0F0F0' },
   
-  // 상태 색상
-  success: { light: '#22C55E', dark: '#4ADE80' },
-  warning: { light: '#F59E0B', dark: '#FBBF24' },
-  error: { light: '#EF4444', dark: '#F87171' },
-  info: { light: '#3B82F6', dark: '#60A5FA' },
+  // 상태 색상 (고대비)
+  success: { light: '#16A34A', dark: '#16A34A' },
+  warning: { light: '#EA580C', dark: '#EA580C' },
+  error: { light: '#DC2626', dark: '#DC2626' },
+  info: { light: '#2563EB', dark: '#2563EB' },
 };
 
 module.exports = { themeColors };
