@@ -2,6 +2,7 @@ import { useState, useCallback } from 'react';
 import { View, Text, ScrollView, Pressable, Modal, TextInput, Image } from 'react-native';
 import { useColors } from '@/hooks/use-colors';
 import { PadletCard } from './padlet-card';
+import { CategoryType } from './category-filter-chips';
 
 interface Post {
   id: string;
@@ -12,6 +13,7 @@ interface Post {
   imageUrl?: string;
   helpCount: number;
   commentCount: number;
+  category: CategoryType;
 }
 
 interface PadletMasonryFeedProps {
@@ -29,6 +31,7 @@ export function PadletMasonryFeed({ posts, onPostAdded }: PadletMasonryFeedProps
   const [newPostContent, setNewPostContent] = useState('');
   const [newPostAuthor, setNewPostAuthor] = useState('');
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [selectedCategory, setSelectedCategory] = useState<CategoryType>('event');
 
   const handleAddPost = useCallback(() => {
     if (newPostContent.trim() && newPostAuthor.trim()) {
@@ -40,6 +43,7 @@ export function PadletMasonryFeed({ posts, onPostAdded }: PadletMasonryFeedProps
         imageUrl: selectedImage || undefined,
         helpCount: 0,
         commentCount: 0,
+        category: selectedCategory,
       };
 
       onPostAdded?.(newPost);
@@ -47,9 +51,10 @@ export function PadletMasonryFeed({ posts, onPostAdded }: PadletMasonryFeedProps
       setNewPostContent('');
       setNewPostAuthor('');
       setSelectedImage(null);
+      setSelectedCategory('event');
       setIsModalVisible(false);
     }
-  }, [newPostContent, newPostAuthor, selectedImage, onPostAdded]);
+  }, [newPostContent, newPostAuthor, selectedImage, selectedCategory, onPostAdded]);
 
   // 마스너리 레이아웃 - 좌측과 우측 분리
   const leftPosts = posts.filter((_, index) => index % 2 === 0);
@@ -214,6 +219,63 @@ export function PadletMasonryFeed({ posts, onPostAdded }: PadletMasonryFeedProps
               }}
               placeholderTextColor={colors.muted}
             />
+
+            {/* 카테고리 선택 */}
+            <View style={{ marginBottom: 12 }}>
+              <Text
+                style={{
+                  fontSize: 13,
+                  fontWeight: '600',
+                  color: colors.foreground,
+                  marginBottom: 8,
+                }}
+              >
+                카테고리
+              </Text>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  gap: 8,
+                  flexWrap: 'wrap',
+                }}
+              >
+                {(['parking', 'food', 'safety', 'event'] as const).map((cat) => {
+                  const categoryLabels: Record<CategoryType, string> = {
+                    all: '전체',
+                    parking: '주차',
+                    food: '음식',
+                    safety: '안전',
+                    event: '이벤트',
+                  };
+                  const isSelected = selectedCategory === cat;
+                  return (
+                    <Pressable
+                      key={cat}
+                      onPress={() => setSelectedCategory(cat)}
+                      style={({ pressed }) => ({
+                        paddingHorizontal: 12,
+                        paddingVertical: 6,
+                        borderRadius: 16,
+                        backgroundColor: isSelected ? colors.primary : colors.surface,
+                        borderWidth: isSelected ? 0 : 1,
+                        borderColor: colors.border,
+                        opacity: pressed ? 0.8 : 1,
+                      })}
+                    >
+                      <Text
+                        style={{
+                          fontSize: 12,
+                          fontWeight: isSelected ? '600' : '500',
+                          color: isSelected ? colors.background : colors.foreground,
+                        }}
+                      >
+                        {categoryLabels[cat]}
+                      </Text>
+                    </Pressable>
+                  );
+                })}
+              </View>
+            </View>
 
             {/* 내용 입력 */}
             <TextInput
