@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ScrollView, View, FlatList, Text, Pressable } from 'react-native';
+import { ScrollView, View, FlatList, Text, Pressable, TextInput } from 'react-native';
 import { ScreenContainer } from '@/components/screen-container';
 import { NolzaBanner } from '@/components/nolza-banner';
 import { FieldInfoCard } from '@/components/field-info-card';
@@ -104,6 +104,7 @@ export default function HomeScreen() {
   const [isChatModalVisible, setIsChatModalVisible] = useState(false);
   const [isSettlementVisible, setIsSettlementVisible] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState<CategoryType>('all');
+  const [searchQuery, setSearchQuery] = useState('');
   
   // Zustand 상태 구독
   const userStats = useGamificationStore((state) => state.userStats);
@@ -166,12 +167,51 @@ export default function HomeScreen() {
         }}
         showsVerticalScrollIndicator={false}
       >
-        {/* 카테고리 필터 칩 */}
+        {/* 카테고리 필터 칩 및 검색 바 */}
         <AnimatedSlide from="top" duration={500} delay={50}>
-          <CategoryFilterChips
-            selectedCategory={selectedCategory}
-            onCategoryChange={setSelectedCategory}
-          />
+          <View style={{ marginBottom: 12 }}>
+            <CategoryFilterChips
+              selectedCategory={selectedCategory}
+              onCategoryChange={setSelectedCategory}
+            />
+          </View>
+          {/* 검색 바 */}
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              backgroundColor: colors.surface,
+              borderRadius: 12,
+              paddingHorizontal: 12,
+              paddingVertical: 10,
+              marginHorizontal: 16,
+              marginBottom: 16,
+              borderWidth: 1,
+              borderColor: colors.border,
+            }}
+          >
+            <Text style={{ fontSize: 18, marginRight: 8 }}>🔍</Text>
+            <TextInput
+              placeholder="게시글 검색..."
+              placeholderTextColor={colors.muted}
+              value={searchQuery}
+              onChangeText={setSearchQuery}
+              style={{
+                flex: 1,
+                fontSize: 14,
+                color: colors.foreground,
+                padding: 0,
+              }}
+            />
+            {searchQuery.length > 0 && (
+              <Pressable
+                onPress={() => setSearchQuery('')}
+                style={{ padding: 4 }}
+              >
+                <Text style={{ fontSize: 16 }}>✕</Text>
+              </Pressable>
+            )}
+          </View>
         </AnimatedSlide>
 
         {/* 노른자 수사대 섹션 - 시각적으로 분리된 컨테이너 */}
@@ -188,7 +228,14 @@ export default function HomeScreen() {
           <AnimatedSlide from="top" duration={500} delay={100}>
             <MiniPadletFeed
               posts={SAMPLE_FIELD_INFO.filter(
-                (info) => selectedCategory === 'all' || info.category === selectedCategory
+                (info) => {
+                  const matchCategory = selectedCategory === 'all' || info.category === selectedCategory;
+                  const matchSearch = searchQuery === '' || 
+                    info.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                    info.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                    info.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()));
+                  return matchCategory && matchSearch;
+                }
               ).map((info) => ({
                 id: info.id,
                 author: '현장 크루',
