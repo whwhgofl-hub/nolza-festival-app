@@ -7,6 +7,8 @@ import { CrewCard } from '@/components/crew-card';
 import { SharedGauge } from '@/components/shared-gauge';
 import { FestivalBadgeGrid } from '@/components/festival-badge-grid';
 import { AnimatedFade, AnimatedSlide } from '@/components/animated-fade';
+import { ChatModal } from '@/components/chat-modal';
+import { ChatFAB } from '@/components/chat-fab';
 import { useColors } from '@/hooks/use-colors';
 
 // 샘플 데이터
@@ -90,6 +92,7 @@ export default function HomeScreen() {
   const colors = useColors();
   const [currentBannerIndex, setCurrentBannerIndex] = useState(0);
   const [helpedCards, setHelpedCards] = useState<Set<string>>(new Set());
+  const [isChatModalVisible, setIsChatModalVisible] = useState(false);
 
   const handleHelpPress = (cardId: string) => {
     const newSet = new Set(helpedCards);
@@ -111,6 +114,18 @@ export default function HomeScreen() {
       <NolzaBanner
         message={SAMPLE_BANNERS[currentBannerIndex].message}
         timestamp={SAMPLE_BANNERS[currentBannerIndex].timestamp}
+      />
+
+      {/* 채팅 모달 */}
+      <ChatModal
+        isVisible={isChatModalVisible}
+        onClose={() => setIsChatModalVisible(false)}
+      />
+
+      {/* 플로팅 액션 버튼 */}
+      <ChatFAB
+        onPress={() => setIsChatModalVisible(true)}
+        isActive={isChatModalVisible}
       />
 
       {/* 메인 콘텐츠 */}
