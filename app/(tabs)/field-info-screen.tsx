@@ -1,100 +1,88 @@
-import { ScrollView, View, Text } from 'react-native';
+import { useState } from 'react';
+import { View } from 'react-native';
 import { ScreenContainer } from '@/components/screen-container';
-import { FieldInfoCard } from '@/components/field-info-card';
-import { AnimatedSlide, AnimatedFade } from '@/components/animated-fade';
-import { useColors } from '@/hooks/use-colors';
+import { PadletMasonryFeed } from '@/components/padlet-masonry-feed';
 
-const SAMPLE_FIELD_INFO = [
+interface Post {
+  id: string;
+  author: string;
+  authorAvatar?: string;
+  timestamp: string;
+  content: string;
+  imageUrl?: string;
+  helpCount: number;
+  commentCount: number;
+}
+
+const SAMPLE_POSTS: Post[] = [
   {
     id: '1',
+    author: '언더햄무리',
+    timestamp: '17일 전',
+    content: '미래적으로 봤을 때 포텐이 있다고 생각합니다',
     imageUrl: 'https://images.unsplash.com/photo-1533900298318-6b8da08a523e?w=400&h=300&fit=crop',
-    title: '메인 광장 현황',
-    description: '메인 광장에 현재 약 5,000명이 모여있습니다. 유등 빵이 거의 완판되었으니 주의하세요.',
-    tags: ['#현재인파', '#메인광장', '#유등빵'],
-    timestamp: '14:20',
+    helpCount: 12,
+    commentCount: 3,
   },
   {
     id: '2',
+    author: '햇상숭그늘',
+    timestamp: '17일 전',
+    content: '인구 그래프를 보면 점은 송이 매우 맞으며 따라서 경제 성장 확률이 크다고 생각합니다.\n영어영문학과 김채은',
     imageUrl: 'https://images.unsplash.com/photo-1555939594-58d7cb561404?w=400&h=300&fit=crop',
-    title: '중앙시장 혼잡도',
-    description: '중앙시장은 비교적 한산합니다. 수복빵집에 수량이 충분하니 이곳으로 이동을 권장합니다.',
-    tags: ['#중앙시장', '#수복빵', '#여유'],
-    timestamp: '14:18',
+    helpCount: 8,
+    commentCount: 2,
   },
   {
     id: '3',
-    imageUrl: 'https://images.unsplash.com/photo-1555939594-58d7cb561404?w=400&h=300&fit=crop',
-    title: '북문 입구 주의',
-    description: '북문 입구 주변에서 소매치기 주의 보고가 있습니다. 귀중품 관리에 주의하세요.',
-    tags: ['#북문', '#주의', '#바가지압수'],
-    timestamp: '14:12',
+    author: '솔윌나루',
+    timestamp: '17일 전',
+    content: '해외취업에 관심이 있는데 어디가 자신의 적성에 맞을지 모르겠어서 여러가지 사례를 듣고 생각해보고싶습니다.',
+    helpCount: 5,
+    commentCount: 1,
   },
   {
     id: '4',
+    author: '바람타는구름',
+    timestamp: '17일 전',
+    content: '지역청년\n저와 잘맞는 기후환경입니다',
+    helpCount: 7,
+    commentCount: 0,
+  },
+  {
+    id: '5',
+    author: '진주공주',
+    timestamp: '17일 전',
+    content: '국제개발협력학과라 관심이 있었습니다. 유등 빵이 거의 완판되었으니 주의하세요.',
     imageUrl: 'https://images.unsplash.com/photo-1555939594-58d7cb561404?w=400&h=300&fit=crop',
-    title: '푸드트럭 대기 시간',
-    description: '인기 푸드트럭은 현재 30분 대기 중입니다. 다른 트럭 이용을 권장합니다.',
-    tags: ['#푸드트럭', '#대기', '#추천'],
-    timestamp: '14:15',
+    helpCount: 15,
+    commentCount: 4,
+  },
+  {
+    id: '6',
+    author: 'ソラビ',
+    timestamp: '17일 전',
+    content: '한국에서 신입은 취업이 힘들 힘들 어 우선 경력을 쌓기위해서 입니다',
+    helpCount: 10,
+    commentCount: 2,
   },
 ];
 
 /**
- * 노른자 수사대 전용 스크린
+ * 노른자 수사대 전용 스크린 - Padlet 마스너리 레이아웃
  */
 export default function FieldInfoScreen() {
-  const colors = useColors();
+  const [posts, setPosts] = useState<Post[]>(SAMPLE_POSTS);
+
+  const handlePostAdded = (newPost: Post) => {
+    setPosts([newPost, ...posts]);
+  };
 
   return (
     <ScreenContainer className="p-0">
-      {/* 콘텐츠 */}
-      <ScrollView
-        contentContainerStyle={{
-          flexGrow: 1,
-          paddingHorizontal: 16,
-          paddingTop: 24,
-          paddingBottom: 24,
-        }}
-        showsVerticalScrollIndicator={false}
-      >
-        <AnimatedSlide from="top" duration={500} delay={100}>
-          <View style={{ marginBottom: 12 }}>
-            <View
-              style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-                gap: 8,
-                marginBottom: 16,
-              }}
-            >
-              <View
-                style={{
-                  width: 4,
-                  height: 24,
-                  backgroundColor: colors.primary,
-                  borderRadius: 2,
-                }}
-              />
-              <Text
-                style={{
-                  fontSize: 18,
-                  fontWeight: '700',
-                  color: colors.foreground,
-                }}
-              >
-                노른자 수사대
-              </Text>
-            </View>
-
-            {/* 현장 정보 카드 리스트 */}
-            {SAMPLE_FIELD_INFO.map((info, index) => (
-              <AnimatedFade key={info.id} duration={400} delay={200 + index * 100}>
-                <FieldInfoCard {...info} />
-              </AnimatedFade>
-            ))}
-          </View>
-        </AnimatedSlide>
-      </ScrollView>
+      <View style={{ flex: 1 }}>
+        <PadletMasonryFeed posts={posts} onPostAdded={handlePostAdded} />
+      </View>
     </ScreenContainer>
   );
 }
