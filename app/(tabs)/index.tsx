@@ -174,24 +174,35 @@ export default function HomeScreen() {
           />
         </AnimatedSlide>
 
-        {/* 노른자 수사대 섹션 - Padlet 포스트잇 형식 */}
-        <AnimatedSlide from="top" duration={500} delay={100}>
-          <MiniPadletFeed
-            posts={SAMPLE_FIELD_INFO.filter(
-              (info) => selectedCategory === 'all' || info.category === selectedCategory
-            ).map((info) => ({
-              id: info.id,
-              author: '현장 크루',
-              content: info.description,
-              imageUrl: info.imageUrl,
-              helpCount: 5,
-              category: info.category,
-            }))}
-            onViewAll={() => {
-              // 노른자 수사대 탭으로 이동
-            }}
-          />
-        </AnimatedSlide>
+        {/* 노른자 수사대 섹션 - 시각적으로 분리된 컨테이너 */}
+        <View
+          style={{
+            backgroundColor: colors.background,
+            borderRadius: 12,
+            paddingVertical: 16,
+            marginBottom: 24,
+            borderWidth: 1,
+            borderColor: colors.border,
+          }}
+        >
+          <AnimatedSlide from="top" duration={500} delay={100}>
+            <MiniPadletFeed
+              posts={SAMPLE_FIELD_INFO.filter(
+                (info) => selectedCategory === 'all' || info.category === selectedCategory
+              ).map((info) => ({
+                id: info.id,
+                author: '현장 크루',
+                content: info.description,
+                imageUrl: info.imageUrl,
+                helpCount: 5,
+                category: info.category,
+              }))}
+              onViewAll={() => {
+                // 노른자 수사대 탭으로 이동
+              }}
+            />
+          </AnimatedSlide>
+        </View>
 
         {/* 크루 광장 섹션 */}
         <AnimatedSlide from="bottom" duration={500} delay={400}>
