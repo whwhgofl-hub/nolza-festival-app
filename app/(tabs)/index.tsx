@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { ScrollView, View, FlatList, Text, Pressable, TextInput } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
 import { ScreenContainer } from '@/components/screen-container';
 import { NolzaBanner } from '@/components/nolza-banner';
 import { FieldInfoCard } from '@/components/field-info-card';
@@ -124,8 +125,14 @@ export default function HomeScreen() {
 
   return (
     <FadeScreen>
+      <LinearGradient
+        colors={['#8B5CF6', '#6D28D9']}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 1, y: 1 }}
+        style={{ flex: 1 }}
+      >
       <ScreenContainer
-        containerClassName="bg-background"
+        containerClassName="bg-transparent"
         className="p-0"
         edges={['top', 'left', 'right']}
       >
@@ -406,6 +413,7 @@ export default function HomeScreen() {
         </Pressable>
       </ScrollView>
     </ScreenContainer>
+      </LinearGradient>
     </FadeScreen>
   );
 }
