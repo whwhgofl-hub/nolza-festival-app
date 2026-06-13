@@ -1,4 +1,4 @@
-import { ScrollView, View } from 'react-native';
+import { ScrollView, View, Text } from 'react-native';
 import { ScreenContainer } from '@/components/screen-container';
 import { ProfileHeader } from '@/components/profile-header';
 import { CategoryMenuSection } from '@/components/category-menu-section';
@@ -130,15 +130,15 @@ export default function HomeScreen() {
                   }}
                 />
                 <View>
-                  <View
-                    style={{
-                      fontSize: 16,
-                      fontWeight: '700',
-                      color: '#1A1A1A',
-                    }}
-                  >
-                    {/* Placeholder for crew title */}
-                  </View>
+                  <Text
+                  style={{
+                    fontSize: 16,
+                    fontWeight: '700',
+                    color: '#1A1A1A',
+                  }}
+                >
+                  크루 광장
+                </Text>
                 </View>
               </View>
             </View>
@@ -158,12 +158,12 @@ export default function HomeScreen() {
 
           {/* 공동 게이지 */}
           <View style={{ paddingHorizontal: 16, marginBottom: 24 }}>
-            <SharedGauge progress={sharedGaugeProgress} />
+            <SharedGauge label="크루 공동 게이지" current={sharedGaugeProgress} total={100} />
           </View>
 
           {/* 제철 계란판 */}
           <View style={{ paddingHorizontal: 16, marginBottom: 40 }}>
-            <FestivalBadgeGrid />
+            <FestivalBadgeGrid festivals={[]} />
           </View>
         </View>
       </ScrollView>
@@ -174,7 +174,7 @@ export default function HomeScreen() {
       {/* 채팅 모달 */}
       {isChatOpen && (
         <ChatModal
-          isOpen={isChatOpen}
+          isVisible={isChatOpen}
           onClose={() => setIsChatOpen(false)}
         />
       )}
