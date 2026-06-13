@@ -27,7 +27,7 @@ export function MiniPadletFeed({ posts, onViewAll }: MiniPadletFeedProps) {
   const fadeAnim = useRef(new Animated.Value(0)).current;
 
   const displayPosts = posts.slice(0, 3);
-  const backgroundColors = ['#FFF8DC', '#FFE4E1', '#F0FFFF'];
+  const backgroundColors = ['rgba(255, 248, 220, 0.7)', 'rgba(255, 228, 225, 0.7)', 'rgba(240, 255, 255, 0.7)'];
 
   // posts가 변경될 때마다 페이드 인 애니메이션 실행
   useEffect(() => {

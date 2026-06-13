@@ -187,26 +187,26 @@ export default function HomeScreen() {
             style={{
               flexDirection: 'row',
               alignItems: 'center',
-              backgroundColor: colors.surface,
+              backgroundColor: 'rgba(255, 255, 255, 0.15)',
               borderRadius: 12,
               paddingHorizontal: 12,
               paddingVertical: 10,
               marginHorizontal: 16,
               marginBottom: 16,
               borderWidth: 1,
-              borderColor: colors.border,
+              borderColor: 'rgba(255, 255, 255, 0.2)',
             }}
           >
             <Text style={{ fontSize: 18, marginRight: 8 }}>🔍</Text>
             <TextInput
               placeholder="게시글 검색..."
-              placeholderTextColor={colors.muted}
+              placeholderTextColor='rgba(255, 255, 255, 0.6)'
               value={searchQuery}
               onChangeText={setSearchQuery}
               style={{
                 flex: 1,
                 fontSize: 14,
-                color: colors.foreground,
+                color: '#FFFFFF',
                 padding: 0,
               }}
             />
@@ -224,12 +224,12 @@ export default function HomeScreen() {
         {/* 노른자 수사대 섹션 - 시각적으로 분리된 컨테이너 */}
         <View
           style={{
-            backgroundColor: colors.background,
+            backgroundColor: 'rgba(255, 255, 255, 0.1)',
             borderRadius: 12,
             paddingVertical: 16,
             marginBottom: 24,
             borderWidth: 1,
-            borderColor: colors.border,
+            borderColor: 'rgba(255, 255, 255, 0.15)',
           }}
         >
           <AnimatedSlide from="top" duration={500} delay={100}>

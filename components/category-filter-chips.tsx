@@ -37,9 +37,9 @@ export function CategoryFilterChips({
         gap: 8,
       }}
       style={{
-        backgroundColor: colors.background,
+        backgroundColor: 'rgba(255, 255, 255, 0.1)',
         borderBottomWidth: 1,
-        borderBottomColor: colors.border,
+        borderBottomColor: 'rgba(255, 255, 255, 0.15)',
       }}
     >
       {CATEGORIES.map((category) => {
@@ -52,9 +52,9 @@ export function CategoryFilterChips({
               width: 72,
               height: 30,
               borderRadius: 15,
-              backgroundColor: isSelected ? '#FFD700' : colors.surface,
+              backgroundColor: isSelected ? '#FFD700' : 'rgba(255, 255, 255, 0.2)',
               borderWidth: 1,
-              borderColor: isSelected ? '#FFD700' : colors.border,
+              borderColor: isSelected ? '#FFD700' : 'rgba(255, 255, 255, 0.3)',
               opacity: pressed ? 0.8 : 1,
               flexDirection: 'row',
               alignItems: 'center',
@@ -62,12 +62,12 @@ export function CategoryFilterChips({
               gap: 4,
             })}
           >
-            <Text style={{ fontSize: 14 }}>{category.icon}</Text>
+            <Text style={{ fontSize: 13 }}>{category.icon}</Text>
             <Text
               style={{
                 fontSize: 11,
                 fontWeight: isSelected ? '600' : '500',
-                color: isSelected ? '#333333' : colors.foreground,
+                color: isSelected ? '#333333' : '#FFFFFF',
               }}
             >
               {category.label}
