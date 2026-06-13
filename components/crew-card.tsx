@@ -52,13 +52,13 @@ export function CrewCard({
     <Pressable
       onPress={() => onPress?.(id)}
       style={({ pressed }) => ({
-        backgroundColor: colors.background,
+        backgroundColor: '#FFFFFF',
         borderRadius: 12,
         marginBottom: 12,
         paddingHorizontal: 16,
         paddingVertical: 14,
         borderWidth: 1,
-        borderColor: colors.border,
+        borderColor: '#E0E0E0',
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.08,
