@@ -14,6 +14,7 @@ import { FadeScreen } from '@/components/fade-screen';
 import { ReceiptAuthButton } from '@/components/receipt-auth-button';
 import { SettlementLetter } from '@/components/settlement-letter';
 import { MiniPadletFeed } from '@/components/mini-padlet-feed';
+import { CategoryFilterChips, CategoryType } from '@/components/category-filter-chips';
 import { useGamificationStore } from '@/lib/gamification-store';
 import { useColors } from '@/hooks/use-colors';
 
@@ -102,6 +103,7 @@ export default function HomeScreen() {
   const [currentBannerIndex, setCurrentBannerIndex] = useState(0);
   const [isChatModalVisible, setIsChatModalVisible] = useState(false);
   const [isSettlementVisible, setIsSettlementVisible] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState<CategoryType>('all');
   
   // Zustand 상태 구독
   const userStats = useGamificationStore((state) => state.userStats);
@@ -164,10 +166,20 @@ export default function HomeScreen() {
         }}
         showsVerticalScrollIndicator={false}
       >
+        {/* 카테고리 필터 칩 */}
+        <AnimatedSlide from="top" duration={500} delay={50}>
+          <CategoryFilterChips
+            selectedCategory={selectedCategory}
+            onCategoryChange={setSelectedCategory}
+          />
+        </AnimatedSlide>
+
         {/* 노른자 수사대 섹션 - Padlet 포스트잇 형식 */}
         <AnimatedSlide from="top" duration={500} delay={100}>
           <MiniPadletFeed
-            posts={SAMPLE_FIELD_INFO.map((info) => ({
+            posts={SAMPLE_FIELD_INFO.filter(
+              (info) => selectedCategory === 'all' || info.category === selectedCategory
+            ).map((info) => ({
               id: info.id,
               author: '현장 크루',
               content: info.description,
