@@ -94,156 +94,188 @@ export function MiniPadletFeed({ posts, onViewAll }: MiniPadletFeedProps) {
 
       {/* 포스트 리스트 - 페이드 인 애니메이션 적용 */}
       <Animated.View style={{ opacity: fadeAnim }}>
-        <ScrollView
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={{
-            paddingHorizontal: 16,
-            gap: 12,
-          }}
-        >
-        {displayPosts.map((post, index) => {
-          const isHelpPressed = helpedCards.has(post.id);
-          const bgColor = backgroundColors[index % backgroundColors.length];
-
-          return (
-            <View
-              key={post.id}
+        {displayPosts.length === 0 ? (
+          <View
+            style={{
+              paddingHorizontal: 16,
+              paddingVertical: 32,
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
+            <Text style={{ fontSize: 40, marginBottom: 12 }}>🔍</Text>
+            <Text
               style={{
-                width: 280,
-                backgroundColor: bgColor,
-                borderRadius: 12,
-                overflow: 'hidden',
-                shadowColor: '#000',
-                shadowOffset: { width: 2, height: 4 },
-                shadowOpacity: 0.1,
-                shadowRadius: 8,
-                elevation: 4,
-                borderWidth: 1,
-                borderColor: 'rgba(0, 0, 0, 0.05)',
+                fontSize: 16,
+                fontWeight: '600',
+                color: colors.foreground,
+                marginBottom: 4,
               }}
             >
-              {/* 이미지 */}
-              {post.imageUrl && (
-                <Image
-                  source={{ uri: post.imageUrl }}
-                  style={{
-                    width: '100%',
-                    height: 120,
-                    backgroundColor: colors.surface,
-                  }}
-                />
-              )}
+              검색 결과가 없습니다
+            </Text>
+            <Text
+              style={{
+                fontSize: 13,
+                color: colors.muted,
+                textAlign: 'center',
+              }}
+            >
+              다른 검색어를 시도해보세요
+            </Text>
+          </View>
+        ) : (
+          <ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={{
+              paddingHorizontal: 16,
+              gap: 12,
+            }}
+          >
+            {displayPosts.map((post, index) => {
+              const isHelpPressed = helpedCards.has(post.id);
+              const bgColor = backgroundColors[index % backgroundColors.length];
 
-              {/* 콘텐츠 */}
-              <View style={{ padding: 12 }}>
-                {/* 작성자 */}
-                <Text
-                  style={{
-                    fontSize: 12,
-                    fontWeight: '700',
-                    color: colors.foreground,
-                    marginBottom: 6,
-                  }}
-                >
-                  {post.author}
-                </Text>
-
-                {/* 텍스트 */}
-                <Text
-                  style={{
-                    fontSize: 13,
-                    fontWeight: '600',
-                    color: colors.foreground,
-                    lineHeight: 18,
-                    marginBottom: 10,
-                  }}
-                  numberOfLines={3}
-                >
-                  {post.content}
-                </Text>
-
-              {/* 카테고리 배지 */}
-              {post.category && (
+              return (
                 <View
+                  key={post.id}
                   style={{
-                    display: 'flex',
-                    marginBottom: 8,
+                    width: 280,
+                    backgroundColor: bgColor,
+                    borderRadius: 12,
+                    overflow: 'hidden',
+                    shadowColor: '#000',
+                    shadowOffset: { width: 2, height: 4 },
+                    shadowOpacity: 0.1,
+                    shadowRadius: 8,
+                    elevation: 4,
+                    borderWidth: 1,
+                    borderColor: 'rgba(0, 0, 0, 0.05)',
                   }}
                 >
-                  <View
-                    style={{
-                      backgroundColor: colors.primary,
-                      paddingHorizontal: 8,
-                      paddingVertical: 4,
-                      borderRadius: 6,
-                      alignSelf: 'flex-start',
-                    }}
-                  >
+                  {/* 이미지 */}
+                  {post.imageUrl && (
+                    <Image
+                      source={{ uri: post.imageUrl }}
+                      style={{
+                        width: '100%',
+                        height: 120,
+                        backgroundColor: colors.surface,
+                      }}
+                    />
+                  )}
+
+                  {/* 콘텐츠 */}
+                  <View style={{ padding: 12 }}>
+                    {/* 작성자 */}
                     <Text
                       style={{
-                        fontSize: 10,
-                        fontWeight: '600',
-                        color: colors.background,
+                        fontSize: 12,
+                        fontWeight: '700',
+                        color: colors.foreground,
+                        marginBottom: 6,
                       }}
                     >
-                      {post.category === 'parking' && '🚗 주차'}
-                      {post.category === 'food' && '🍽️ 음식'}
-                      {post.category === 'safety' && '🛡️ 안전'}
-                      {post.category === 'event' && '🎪 이벤트'}
+                      {post.author}
                     </Text>
+
+                    {/* 텍스트 */}
+                    <Text
+                      style={{
+                        fontSize: 13,
+                        fontWeight: '600',
+                        color: colors.foreground,
+                        lineHeight: 18,
+                        marginBottom: 10,
+                      }}
+                      numberOfLines={3}
+                    >
+                      {post.content}
+                    </Text>
+
+                    {/* 카테고리 배지 */}
+                    {post.category && (
+                      <View
+                        style={{
+                          display: 'flex',
+                          marginBottom: 8,
+                        }}
+                      >
+                        <View
+                          style={{
+                            backgroundColor: colors.primary,
+                            paddingHorizontal: 8,
+                            paddingVertical: 4,
+                            borderRadius: 6,
+                            alignSelf: 'flex-start',
+                          }}
+                        >
+                          <Text
+                            style={{
+                              fontSize: 10,
+                              fontWeight: '600',
+                              color: colors.background,
+                            }}
+                          >
+                            {post.category === 'parking' && '🚗 주차'}
+                            {post.category === 'food' && '🝴 음식'}
+                            {post.category === 'safety' && '🛡 안전'}
+                            {post.category === 'event' && '🀪 이벤트'}
+                          </Text>
+                        </View>
+                      </View>
+                    )}
+
+                    {/* 푸터 */}
+                    <View
+                      style={{
+                        flexDirection: 'row',
+                        justifyContent: 'space-between',
+                        alignItems: 'center',
+                        paddingTop: 8,
+                        borderTopWidth: 1,
+                        borderTopColor: 'rgba(0, 0, 0, 0.08)',
+                      }}
+                    >
+                      <Pressable
+                        onPress={() => handleHelpPress(post.id)}
+                        style={({ pressed }) => ({
+                          flexDirection: 'row',
+                          alignItems: 'center',
+                          gap: 4,
+                          opacity: pressed ? 0.7 : 1,
+                        })}
+                      >
+                        <Text style={{ fontSize: 14 }}>
+                          {isHelpPressed ? '😊' : '🙂'}
+                        </Text>
+                        <Text
+                          style={{
+                            fontSize: 11,
+                            fontWeight: '600',
+                            color: isHelpPressed ? colors.primary : colors.muted,
+                          }}
+                        >
+                          {post.helpCount + (isHelpPressed ? 1 : 0)}
+                        </Text>
+                      </Pressable>
+
+                      <Text
+                        style={{
+                          fontSize: 11,
+                          color: colors.muted,
+                        }}
+                      >
+                        💬 0
+                      </Text>
+                    </View>
                   </View>
                 </View>
-              )}
-
-              {/* 푸터 */}
-              <View
-                style={{
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                  paddingTop: 8,
-                  borderTopWidth: 1,
-                  borderTopColor: 'rgba(0, 0, 0, 0.08)',
-                }}
-              >
-                <Pressable
-                  onPress={() => handleHelpPress(post.id)}
-                  style={({ pressed }) => ({
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    gap: 4,
-                    opacity: pressed ? 0.7 : 1,
-                  })}
-                >
-                  <Text style={{ fontSize: 14 }}>
-                    {isHelpPressed ? '😊' : '🙂'}
-                  </Text>
-                  <Text
-                    style={{
-                      fontSize: 11,
-                      fontWeight: '600',
-                      color: isHelpPressed ? colors.primary : colors.muted,
-                    }}
-                  >
-                    {post.helpCount + (isHelpPressed ? 1 : 0)}
-                  </Text>
-                </Pressable>
-
-                <Text
-                  style={{
-                    fontSize: 11,
-                    color: colors.muted,
-                  }}
-                >
-                  💬 0
-                </Text>
-              </View>
-              </View>
-            </View>
-          );
-        })}
-      </ScrollView>
+              );
+            })}
+          </ScrollView>
+        )}
       </Animated.View>
     </View>
   );
