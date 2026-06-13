@@ -49,9 +49,9 @@ export function CategoryFilterChips({
             key={category.id}
             onPress={() => onCategoryChange(category.id)}
             style={({ pressed }) => ({
-              paddingHorizontal: 16,
-              paddingVertical: 10,
-              borderRadius: 12,
+              width: 72,
+              height: 30,
+              borderRadius: 15,
               backgroundColor: isSelected ? colors.primary : colors.surface,
               borderWidth: 1,
               borderColor: isSelected ? colors.primary : colors.border,
@@ -59,14 +59,13 @@ export function CategoryFilterChips({
               flexDirection: 'row',
               alignItems: 'center',
               justifyContent: 'center',
-              gap: 6,
-              minWidth: 90,
+              gap: 4,
             })}
           >
-            <Text style={{ fontSize: 16 }}>{category.icon}</Text>
+            <Text style={{ fontSize: 14 }}>{category.icon}</Text>
             <Text
               style={{
-                fontSize: 13,
+                fontSize: 11,
                 fontWeight: isSelected ? '600' : '500',
                 color: isSelected ? colors.background : colors.foreground,
               }}
