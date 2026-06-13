@@ -1,5 +1,5 @@
-import { ScrollView, View, FlatList, Text } from 'react-native';
 import { useState } from 'react';
+import { ScrollView, View, FlatList, Text, Pressable } from 'react-native';
 import { ScreenContainer } from '@/components/screen-container';
 import { NolzaBanner } from '@/components/nolza-banner';
 import { FieldInfoCard } from '@/components/field-info-card';
@@ -9,6 +9,10 @@ import { FestivalBadgeGrid } from '@/components/festival-badge-grid';
 import { AnimatedFade, AnimatedSlide } from '@/components/animated-fade';
 import { ChatModal } from '@/components/chat-modal';
 import { ChatFAB } from '@/components/chat-fab';
+import { ToastContainer } from '@/components/toast-container';
+import { ReceiptAuthButton } from '@/components/receipt-auth-button';
+import { SettlementLetter } from '@/components/settlement-letter';
+import { useGamificationStore } from '@/lib/gamification-store';
 import { useColors } from '@/hooks/use-colors';
 
 // 샘플 데이터
@@ -91,17 +95,23 @@ const SAMPLE_FESTIVALS = [
 export default function HomeScreen() {
   const colors = useColors();
   const [currentBannerIndex, setCurrentBannerIndex] = useState(0);
-  const [helpedCards, setHelpedCards] = useState<Set<string>>(new Set());
   const [isChatModalVisible, setIsChatModalVisible] = useState(false);
+  const [isSettlementVisible, setIsSettlementVisible] = useState(false);
+  
+  // Zustand 상태 구독
+  const userStats = useGamificationStore((state) => state.userStats);
+  const subscribe = useGamificationStore((state) => state.subscribe);
+  const carryOverPoints = useGamificationStore((state) => state.carryOverPoints);
+  const setFestivalEnded = useGamificationStore((state) => state.setFestivalEnded);
 
-  const handleHelpPress = (cardId: string) => {
-    const newSet = new Set(helpedCards);
-    if (newSet.has(cardId)) {
-      newSet.delete(cardId);
-    } else {
-      newSet.add(cardId);
-    }
-    setHelpedCards(newSet);
+  const handleEndFestival = () => {
+    setFestivalEnded(true);
+    setIsSettlementVisible(true);
+  };
+
+  const handleSubscribe = () => {
+    subscribe();
+    carryOverPoints();
   };
 
   return (
@@ -116,10 +126,20 @@ export default function HomeScreen() {
         timestamp={SAMPLE_BANNERS[currentBannerIndex].timestamp}
       />
 
+      {/* 토스트 알림 컨테이너 */}
+      <ToastContainer />
+
       {/* 채팅 모달 */}
       <ChatModal
         isVisible={isChatModalVisible}
         onClose={() => setIsChatModalVisible(false)}
+      />
+
+      {/* 정산 레터 */}
+      <SettlementLetter
+        isVisible={isSettlementVisible}
+        onClose={() => setIsSettlementVisible(false)}
+        onSubscribe={handleSubscribe}
       />
 
       {/* 플로팅 액션 버튼 */}
@@ -186,7 +206,6 @@ export default function HomeScreen() {
               <AnimatedFade key={info.id} duration={400} delay={200 + index * 100}>
                 <FieldInfoCard
                   {...info}
-                  onHelpPress={handleHelpPress}
                 />
               </AnimatedFade>
             ))}
@@ -282,11 +301,15 @@ export default function HomeScreen() {
               </Text>
             </View>
 
+            <View style={{ marginBottom: 12 }}>
+              <ReceiptAuthButton />
+            </View>
+
             <SharedGauge
-              label="현장 참여도"
-              current={2847}
-              total={5000}
-              description="축제 현장에 참여 중인 크루 수"
+              label="공동 게이지 진행도"
+              current={userStats.gaugeProgress}
+              total={100}
+              description="영수증 인증으로 게이지를 채워보세요!"
             />
 
             <SharedGauge
@@ -319,6 +342,29 @@ export default function HomeScreen() {
             <FestivalBadgeGrid festivals={SAMPLE_FESTIVALS} />
           </View>
         </AnimatedSlide>
+
+        {/* 축제 종료 및 정산 버튼 */}
+        <Pressable
+          onPress={handleEndFestival}
+          style={({ pressed }) => ({
+            backgroundColor: colors.error,
+            paddingVertical: 12,
+            borderRadius: 8,
+            opacity: pressed ? 0.8 : 1,
+            marginTop: 8,
+          })}
+        >
+          <Text
+            style={{
+              color: colors.background,
+              fontWeight: '600',
+              textAlign: 'center',
+              fontSize: 14,
+            }}
+          >
+            🎉 축제 종료 및 정산하기
+          </Text>
+        </Pressable>
       </ScrollView>
     </ScreenContainer>
   );

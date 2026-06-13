@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { View, Text, Image, Pressable, Animated } from 'react-native';
 import { useColors } from '@/hooks/use-colors';
+import { useGamificationStore } from '@/lib/gamification-store';
 import { cn } from '@/lib/utils';
 
 interface FieldInfoCardProps {
@@ -27,11 +28,13 @@ export function FieldInfoCard({
   onHelpPress,
 }: FieldInfoCardProps) {
   const colors = useColors();
-  const [isHelpPressed, setIsHelpPressed] = useState(false);
+  const toggleHelpCard = useGamificationStore((state) => state.toggleHelpCard);
+  const helpedCards = useGamificationStore((state) => state.helpedCards);
+  const isHelpPressed = helpedCards.has(id);
   const helpScaleAnim = new Animated.Value(1);
 
   const handleHelpPress = () => {
-    setIsHelpPressed(!isHelpPressed);
+    toggleHelpCard(id);
     
     Animated.sequence([
       Animated.timing(helpScaleAnim, {
