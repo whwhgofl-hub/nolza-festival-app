@@ -8,6 +8,7 @@ interface MiniPost {
   content: string;
   imageUrl?: string;
   helpCount: number;
+  category?: 'parking' | 'food' | 'safety' | 'event';
 }
 
 interface MiniPadletFeedProps {
@@ -149,49 +150,82 @@ export function MiniPadletFeed({ posts, onViewAll }: MiniPadletFeedProps) {
                   {post.content}
                 </Text>
 
-                {/* 푸터 */}
+              {/* 카테고리 배지 */}
+              {post.category && (
                 <View
                   style={{
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                    paddingTop: 8,
-                    borderTopWidth: 1,
-                    borderTopColor: 'rgba(0, 0, 0, 0.08)',
+                    display: 'flex',
+                    marginBottom: 8,
                   }}
                 >
-                  <Pressable
-                    onPress={() => handleHelpPress(post.id)}
-                    style={({ pressed }) => ({
-                      flexDirection: 'row',
-                      alignItems: 'center',
-                      gap: 4,
-                      opacity: pressed ? 0.7 : 1,
-                    })}
+                  <View
+                    style={{
+                      backgroundColor: colors.primary,
+                      paddingHorizontal: 8,
+                      paddingVertical: 4,
+                      borderRadius: 6,
+                      alignSelf: 'flex-start',
+                    }}
                   >
-                    <Text style={{ fontSize: 14 }}>
-                      {isHelpPressed ? '😊' : '🙂'}
-                    </Text>
                     <Text
                       style={{
-                        fontSize: 11,
+                        fontSize: 10,
                         fontWeight: '600',
-                        color: isHelpPressed ? colors.primary : colors.muted,
+                        color: colors.background,
                       }}
                     >
-                      {post.helpCount + (isHelpPressed ? 1 : 0)}
+                      {post.category === 'parking' && '🚗 주차'}
+                      {post.category === 'food' && '🍽️ 음식'}
+                      {post.category === 'safety' && '🛡️ 안전'}
+                      {post.category === 'event' && '🎪 이벤트'}
                     </Text>
-                  </Pressable>
+                  </View>
+                </View>
+              )}
 
+              {/* 푸터 */}
+              <View
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  paddingTop: 8,
+                  borderTopWidth: 1,
+                  borderTopColor: 'rgba(0, 0, 0, 0.08)',
+                }}
+              >
+                <Pressable
+                  onPress={() => handleHelpPress(post.id)}
+                  style={({ pressed }) => ({
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    gap: 4,
+                    opacity: pressed ? 0.7 : 1,
+                  })}
+                >
+                  <Text style={{ fontSize: 14 }}>
+                    {isHelpPressed ? '😊' : '🙂'}
+                  </Text>
                   <Text
                     style={{
                       fontSize: 11,
-                      color: colors.muted,
+                      fontWeight: '600',
+                      color: isHelpPressed ? colors.primary : colors.muted,
                     }}
                   >
-                    💬 0
+                    {post.helpCount + (isHelpPressed ? 1 : 0)}
                   </Text>
-                </View>
+                </Pressable>
+
+                <Text
+                  style={{
+                    fontSize: 11,
+                    color: colors.muted,
+                  }}
+                >
+                  💬 0
+                </Text>
+              </View>
               </View>
             </View>
           );

@@ -39,6 +39,7 @@ const SAMPLE_FIELD_INFO = [
     description: '메인 광장에 현재 약 5,000명이 모여있습니다. 유등 빵이 거의 완판되었으니 주의하세요.',
     tags: ['#현재인파', '#메인광장', '#유등빵'],
     timestamp: '14:20',
+    category: 'food' as const,
   },
   {
     id: '2',
@@ -47,6 +48,7 @@ const SAMPLE_FIELD_INFO = [
     description: '중앙시장은 비교적 한산합니다. 수복빵집에 수량이 충분하니 이곳으로 이동을 권장합니다.',
     tags: ['#중앙시장', '#수복빵', '#여유'],
     timestamp: '14:18',
+    category: 'food' as const,
   },
   {
     id: '3',
@@ -55,6 +57,7 @@ const SAMPLE_FIELD_INFO = [
     description: '북문 입구 주변에서 소매치기 주의 보고가 있습니다. 귀중품 관리에 주의하세요.',
     tags: ['#북문', '#주의', '#바가지압수'],
     timestamp: '14:12',
+    category: 'safety' as const,
   },
 ];
 
@@ -170,6 +173,7 @@ export default function HomeScreen() {
               content: info.description,
               imageUrl: info.imageUrl,
               helpCount: 5,
+              category: info.category,
             }))}
             onViewAll={() => {
               // 노른자 수사대 탭으로 이동
