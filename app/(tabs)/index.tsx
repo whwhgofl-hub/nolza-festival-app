@@ -12,6 +12,7 @@ import { ChatFAB } from '@/components/chat-fab';
 import { ToastContainer } from '@/components/toast-container';
 import { ReceiptAuthButton } from '@/components/receipt-auth-button';
 import { SettlementLetter } from '@/components/settlement-letter';
+import { MiniPadletFeed } from '@/components/mini-padlet-feed';
 import { useGamificationStore } from '@/lib/gamification-store';
 import { useColors } from '@/hooks/use-colors';
 
@@ -158,58 +159,20 @@ export default function HomeScreen() {
         }}
         showsVerticalScrollIndicator={false}
       >
-        {/* 노른자 수사대 섹션 */}
+        {/* 노른자 수사대 섹션 - Padlet 포스트잇 형식 */}
         <AnimatedSlide from="top" duration={500} delay={100}>
-          <View style={{ marginBottom: 24 }}>
-            <View style={{ marginBottom: 12 }}>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  gap: 8,
-                  marginBottom: 12,
-                }}
-              >
-                <View
-                  style={{
-                    width: 4,
-                    height: 20,
-                    backgroundColor: colors.primary,
-                    borderRadius: 2,
-                  }}
-                />
-                <View>
-                  <Text
-                    style={{
-                      fontSize: 16,
-                      fontWeight: '700',
-                      color: colors.foreground,
-                    }}
-                  >
-                    노른자 수사대
-                  </Text>
-                  <Text
-                    style={{
-                      fontSize: 12,
-                      color: colors.muted,
-                      marginTop: 2,
-                    }}
-                  >
-                    실시간 현장 뷰
-                  </Text>
-                </View>
-              </View>
-            </View>
-
-            {/* 현장 정보 카드 리스트 */}
-            {SAMPLE_FIELD_INFO.map((info, index) => (
-              <AnimatedFade key={info.id} duration={400} delay={200 + index * 100}>
-                <FieldInfoCard
-                  {...info}
-                />
-              </AnimatedFade>
-            ))}
-          </View>
+          <MiniPadletFeed
+            posts={SAMPLE_FIELD_INFO.map((info) => ({
+              id: info.id,
+              author: '현장 크루',
+              content: info.description,
+              imageUrl: info.imageUrl,
+              helpCount: 5,
+            }))}
+            onViewAll={() => {
+              // 노른자 수사대 탭으로 이동
+            }}
+          />
         </AnimatedSlide>
 
         {/* 크루 광장 섹션 */}
