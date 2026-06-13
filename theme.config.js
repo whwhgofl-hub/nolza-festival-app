@@ -1,9 +1,9 @@
 /** @type {const} */
 const themeColors = {
-  // 주 색상: 노란색 배경
-  primary: { light: '#FFD700', dark: '#FFD700' },
-  // 배경: 밝은 노란색
-  background: { light: '#FFF9E6', dark: '#FFF9E6' },
+  // 주 색상: 보라색 (퍼플)
+  primary: { light: '#7C3AED', dark: '#7C3AED' },
+  // 배경: 보라색 그라디언트 (밝은 보라색)
+  background: { light: '#6D28D9', dark: '#6D28D9' },
   // 표면: 흰색 (카드, 모달 등)
   surface: { light: '#FFFFFF', dark: '#FFFFFF' },
   // 텍스트: 검은색

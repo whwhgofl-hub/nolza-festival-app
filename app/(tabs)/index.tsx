@@ -121,12 +121,6 @@ export default function HomeScreen() {
       className="p-0"
       edges={['top', 'left', 'right']}
     >
-      {/* 노른자 속보 배너 */}
-      <NolzaBanner
-        message={SAMPLE_BANNERS[currentBannerIndex].message}
-        timestamp={SAMPLE_BANNERS[currentBannerIndex].timestamp}
-      />
-
       {/* 토스트 알림 컨테이너 */}
       <ToastContainer />
 
@@ -149,7 +143,13 @@ export default function HomeScreen() {
         isActive={isChatModalVisible}
       />
 
-      {/* 메인 콘텐츠 */}
+      {/* 긴급속보 배너 - 상단 고정 */}
+      <NolzaBanner
+        message={SAMPLE_BANNERS[currentBannerIndex].message}
+        timestamp={SAMPLE_BANNERS[currentBannerIndex].timestamp}
+      />
+
+      {/* 메인 콘텐츠 - 스크롤 가능 */}
       <ScrollView
         contentContainerStyle={{
           flexGrow: 1,
