@@ -1,4 +1,5 @@
-import { View, Text, ScrollView, Pressable, Image } from 'react-native';
+import { View, Text, ScrollView, Pressable, Image, Animated } from 'react-native';
+import { useEffect, useRef } from 'react';
 import { useColors } from '@/hooks/use-colors';
 import { useGamificationStore } from '@/lib/gamification-store';
 
@@ -23,9 +24,20 @@ export function MiniPadletFeed({ posts, onViewAll }: MiniPadletFeedProps) {
   const colors = useColors();
   const toggleHelpCard = useGamificationStore((state) => state.toggleHelpCard);
   const helpedCards = useGamificationStore((state) => state.helpedCards);
+  const fadeAnim = useRef(new Animated.Value(0)).current;
 
   const displayPosts = posts.slice(0, 3);
   const backgroundColors = ['#FFF8DC', '#FFE4E1', '#F0FFFF'];
+
+  // posts가 변경될 때마다 페이드 인 애니메이션 실행
+  useEffect(() => {
+    fadeAnim.setValue(0);
+    Animated.timing(fadeAnim, {
+      toValue: 1,
+      duration: 300,
+      useNativeDriver: true,
+    }).start();
+  }, [posts, fadeAnim]);
 
   const handleHelpPress = (id: string) => {
     toggleHelpCard(id);
@@ -80,15 +92,16 @@ export function MiniPadletFeed({ posts, onViewAll }: MiniPadletFeedProps) {
         </Pressable>
       </View>
 
-      {/* 포스트 리스트 */}
-      <ScrollView
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        contentContainerStyle={{
-          paddingHorizontal: 16,
-          gap: 12,
-        }}
-      >
+      {/* 포스트 리스트 - 페이드 인 애니메이션 적용 */}
+      <Animated.View style={{ opacity: fadeAnim }}>
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={{
+            paddingHorizontal: 16,
+            gap: 12,
+          }}
+        >
         {displayPosts.map((post, index) => {
           const isHelpPressed = helpedCards.has(post.id);
           const bgColor = backgroundColors[index % backgroundColors.length];
@@ -231,6 +244,7 @@ export function MiniPadletFeed({ posts, onViewAll }: MiniPadletFeedProps) {
           );
         })}
       </ScrollView>
+      </Animated.View>
     </View>
   );
 }
