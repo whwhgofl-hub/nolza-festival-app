@@ -49,19 +49,21 @@ export function CategoryFilterChips({
             key={category.id}
             onPress={() => onCategoryChange(category.id)}
             style={({ pressed }) => ({
-              paddingHorizontal: 14,
-              paddingVertical: 8,
-              borderRadius: 20,
+              paddingHorizontal: 16,
+              paddingVertical: 10,
+              borderRadius: 12,
               backgroundColor: isSelected ? colors.primary : colors.surface,
-              borderWidth: isSelected ? 0 : 1,
-              borderColor: colors.border,
+              borderWidth: 1,
+              borderColor: isSelected ? colors.primary : colors.border,
               opacity: pressed ? 0.8 : 1,
               flexDirection: 'row',
               alignItems: 'center',
+              justifyContent: 'center',
               gap: 6,
+              minWidth: 90,
             })}
           >
-            <Text style={{ fontSize: 14 }}>{category.icon}</Text>
+            <Text style={{ fontSize: 16 }}>{category.icon}</Text>
             <Text
               style={{
                 fontSize: 13,
