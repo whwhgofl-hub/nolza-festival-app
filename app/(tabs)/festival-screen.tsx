@@ -2,6 +2,7 @@ import { ScrollView, View, Text } from 'react-native';
 import { ScreenContainer } from '@/components/screen-container';
 import { FestivalBadgeGrid } from '@/components/festival-badge-grid';
 import { AnimatedSlide } from '@/components/animated-fade';
+import { FadeScreen } from '@/components/fade-screen';
 import { useColors } from '@/hooks/use-colors';
 
 const SAMPLE_FESTIVALS = [
@@ -20,7 +21,8 @@ export default function FestivalScreen() {
   const colors = useColors();
 
   return (
-    <ScreenContainer className="p-0">
+    <FadeScreen>
+      <ScreenContainer className="p-0">
       {/* 콘텐츠 */}
       <ScrollView
         contentContainerStyle={{
@@ -94,5 +96,6 @@ export default function FestivalScreen() {
         </AnimatedSlide>
       </ScrollView>
     </ScreenContainer>
+    </FadeScreen>
   );
 }

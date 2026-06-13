@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { View } from 'react-native';
 import { ScreenContainer } from '@/components/screen-container';
 import { PadletMasonryFeed } from '@/components/padlet-masonry-feed';
+import { FadeScreen } from '@/components/fade-screen';
 
 interface Post {
   id: string;
@@ -79,10 +80,12 @@ export default function FieldInfoScreen() {
   };
 
   return (
-    <ScreenContainer className="p-0">
-      <View style={{ flex: 1 }}>
-        <PadletMasonryFeed posts={posts} onPostAdded={handlePostAdded} />
-      </View>
-    </ScreenContainer>
+    <FadeScreen>
+      <ScreenContainer className="p-0">
+        <View style={{ flex: 1 }}>
+          <PadletMasonryFeed posts={posts} onPostAdded={handlePostAdded} />
+        </View>
+      </ScreenContainer>
+    </FadeScreen>
   );
 }

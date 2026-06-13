@@ -3,6 +3,7 @@ import { ScreenContainer } from '@/components/screen-container';
 import { SharedGauge } from '@/components/shared-gauge';
 import { ReceiptAuthButton } from '@/components/receipt-auth-button';
 import { AnimatedSlide } from '@/components/animated-fade';
+import { FadeScreen } from '@/components/fade-screen';
 import { useGamificationStore } from '@/lib/gamification-store';
 import { useColors } from '@/hooks/use-colors';
 
@@ -14,7 +15,8 @@ export default function GaugeScreen() {
   const userStats = useGamificationStore((state) => state.userStats);
 
   return (
-    <ScreenContainer className="p-0">
+    <FadeScreen>
+      <ScreenContainer className="p-0">
       {/* 콘텐츠 */}
       <ScrollView
         contentContainerStyle={{
@@ -115,7 +117,8 @@ export default function GaugeScreen() {
           </View>
         </AnimatedSlide>
       </ScrollView>
-    </ScreenContainer>
+      </ScreenContainer>
+    </FadeScreen>
   );
 }
 

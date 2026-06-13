@@ -10,6 +10,7 @@ import { AnimatedFade, AnimatedSlide } from '@/components/animated-fade';
 import { ChatModal } from '@/components/chat-modal';
 import { ChatFAB } from '@/components/chat-fab';
 import { ToastContainer } from '@/components/toast-container';
+import { FadeScreen } from '@/components/fade-screen';
 import { ReceiptAuthButton } from '@/components/receipt-auth-button';
 import { SettlementLetter } from '@/components/settlement-letter';
 import { MiniPadletFeed } from '@/components/mini-padlet-feed';
@@ -116,13 +117,14 @@ export default function HomeScreen() {
   };
 
   return (
-    <ScreenContainer
-      containerClassName="bg-background"
-      className="p-0"
-      edges={['top', 'left', 'right']}
-    >
-      {/* 토스트 알림 컨테이너 */}
-      <ToastContainer />
+    <FadeScreen>
+      <ScreenContainer
+        containerClassName="bg-background"
+        className="p-0"
+        edges={['top', 'left', 'right']}
+      >
+        {/* 토스트 알림 컨테이너 */}
+        <ToastContainer />
 
       {/* 채팅 모달 */}
       <ChatModal
@@ -330,6 +332,7 @@ export default function HomeScreen() {
         </Pressable>
       </ScrollView>
     </ScreenContainer>
+    </FadeScreen>
   );
 }
 

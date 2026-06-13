@@ -2,6 +2,7 @@ import { ScrollView, View, Text } from 'react-native';
 import { ScreenContainer } from '@/components/screen-container';
 import { NolzaBanner } from '@/components/nolza-banner';
 import { AnimatedSlide } from '@/components/animated-fade';
+import { FadeScreen } from '@/components/fade-screen';
 import { useColors } from '@/hooks/use-colors';
 
 const SAMPLE_BANNERS = [
@@ -34,7 +35,8 @@ export default function NolzaBannerScreen() {
   const colors = useColors();
 
   return (
-    <ScreenContainer className="p-0">
+    <FadeScreen>
+      <ScreenContainer className="p-0">
       {/* 배너 */}
       <NolzaBanner
         message={SAMPLE_BANNERS[0].message}
@@ -109,6 +111,7 @@ export default function NolzaBannerScreen() {
           </View>
         </AnimatedSlide>
       </ScrollView>
-    </ScreenContainer>
+      </ScreenContainer>
+    </FadeScreen>
   );
 }

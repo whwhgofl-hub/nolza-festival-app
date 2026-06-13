@@ -2,6 +2,7 @@ import { ScrollView, View, Text } from 'react-native';
 import { ScreenContainer } from '@/components/screen-container';
 import { CrewCard } from '@/components/crew-card';
 import { AnimatedSlide, AnimatedFade } from '@/components/animated-fade';
+import { FadeScreen } from '@/components/fade-screen';
 import { useColors } from '@/hooks/use-colors';
 
 const SAMPLE_CREW = [
@@ -46,7 +47,8 @@ export default function CrewScreen() {
   const colors = useColors();
 
   return (
-    <ScreenContainer className="p-0">
+    <FadeScreen>
+      <ScreenContainer className="p-0">
       {/* 콘텐츠 */}
       <ScrollView
         contentContainerStyle={{
@@ -95,6 +97,7 @@ export default function CrewScreen() {
           </View>
         </AnimatedSlide>
       </ScrollView>
-    </ScreenContainer>
+      </ScreenContainer>
+    </FadeScreen>
   );
 }
