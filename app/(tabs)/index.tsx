@@ -340,7 +340,7 @@ export default function HomeScreen() {
                 style={{
                   fontSize: 16,
                   fontWeight: '700',
-                  color: '#FFFFFF',
+                  color: '#000000',
                 }}
               >
                 크루 공동 게이지
