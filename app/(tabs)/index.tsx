@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { ScrollView, View, FlatList, Text, Pressable, TextInput } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
+import { useRouter } from 'expo-router';
 import { ScreenContainer } from '@/components/screen-container';
 import { NolzaBanner } from '@/components/nolza-banner';
 import { FieldInfoCard } from '@/components/field-info-card';
@@ -300,11 +301,19 @@ export default function HomeScreen() {
             </View>
 
             {/* 크루 카드 리스트 */}
-            {SAMPLE_CREW.map((crew, index) => (
-              <AnimatedFade key={crew.id} duration={400} delay={500 + index * 100}>
-                <CrewCard {...crew} />
-              </AnimatedFade>
-            ))}
+            {SAMPLE_CREW.map((crew, index) => {
+              const router = useRouter();
+              return (
+                <AnimatedFade key={crew.id} duration={400} delay={500 + index * 100}>
+                  <CrewCard 
+                    {...crew} 
+                    onPress={() => {
+                      router.push('/chat');
+                    }}
+                  />
+                </AnimatedFade>
+              );
+            })}
           </View>
         </AnimatedSlide>
 
