@@ -124,26 +124,6 @@ export default function ChatScreen() {
         >
           크루 채팅
         </Text>
-        <Pressable
-          onPress={handleRecruitmentComplete}
-          style={({ pressed }) => ({
-            backgroundColor: '#FFD700',
-            paddingHorizontal: 12,
-            paddingVertical: 6,
-            borderRadius: 6,
-            opacity: pressed ? 0.8 : 1,
-          })}
-        >
-          <Text
-            style={{
-              fontSize: 12,
-              fontWeight: '600',
-              color: '#333333',
-            }}
-          >
-            모집완료
-          </Text>
-        </Pressable>
       </View>
 
       {/* 메시지 리스트 */}
@@ -212,6 +192,39 @@ export default function ChatScreen() {
           </View>
         ))}
       </ScrollView>
+
+      {/* 모집완료 버튼 */}
+      <View
+        style={{
+          paddingHorizontal: 16,
+          paddingVertical: 12,
+          borderTopWidth: 1,
+          borderTopColor: colors.border,
+          backgroundColor: colors.background,
+        }}
+      >
+        <Pressable
+          onPress={handleRecruitmentComplete}
+          style={({ pressed }) => ({
+            backgroundColor: '#FFD700',
+            paddingHorizontal: 16,
+            paddingVertical: 12,
+            borderRadius: 8,
+            opacity: pressed ? 0.8 : 1,
+            alignItems: 'center',
+          })}
+        >
+          <Text
+            style={{
+              fontSize: 16,
+              fontWeight: '700',
+              color: '#333333',
+            }}
+          >
+            모집완료
+          </Text>
+        </Pressable>
+      </View>
 
       {/* 메시지 입력 */}
       <View
