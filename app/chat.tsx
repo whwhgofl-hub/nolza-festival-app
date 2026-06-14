@@ -1,8 +1,8 @@
-import { View, Text, ScrollView, TextInput, Pressable, ActivityIndicator } from 'react-native';
+import { View, Text, ScrollView, TextInput, Pressable, ActivityIndicator, Animated } from 'react-native';
 import { useRouter } from 'expo-router';
 import { ScreenContainer } from '@/components/screen-container';
 import { useColors } from '@/hooks/use-colors';
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 interface Message {
   id: string;
@@ -40,6 +40,24 @@ export default function ChatScreen() {
   ]);
   const [inputText, setInputText] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const spinValue = useRef(new Animated.Value(0)).current;
+
+  useEffect(() => {
+    if (isLoading) {
+      Animated.loop(
+        Animated.timing(spinValue, {
+          toValue: 1,
+          duration: 1500,
+          useNativeDriver: true,
+        })
+      ).start();
+    }
+  }, [isLoading, spinValue]);
+
+  const spin = spinValue.interpolate({
+    inputRange: [0, 1],
+    outputRange: ['0deg', '360deg'],
+  });
 
   const handleSendMessage = () => {
     if (inputText.trim()) {
@@ -76,13 +94,28 @@ export default function ChatScreen() {
             alignItems: 'center',
           }}
         >
-          <ActivityIndicator size="large" color={colors.primary} />
+          <Animated.View
+            style={{
+              transform: [{ rotate: spin }],
+            }}
+          >
+            <View
+              style={{
+                width: 60,
+                height: 60,
+                borderRadius: 30,
+                borderWidth: 4,
+                borderColor: colors.primary,
+                borderTopColor: 'transparent',
+              }}
+            />
+          </Animated.View>
           <Text
             style={{
               fontSize: 18,
               fontWeight: '600',
               color: colors.foreground,
-              marginTop: 16,
+              marginTop: 24,
             }}
           >
             야놀자 페이지로 이동 중이에요
