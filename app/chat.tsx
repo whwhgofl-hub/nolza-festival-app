@@ -1,4 +1,4 @@
-import { View, Text, ScrollView, TextInput, Pressable } from 'react-native';
+import { View, Text, ScrollView, TextInput, Pressable, ActivityIndicator } from 'react-native';
 import { useRouter } from 'expo-router';
 import { ScreenContainer } from '@/components/screen-container';
 import { useColors } from '@/hooks/use-colors';
@@ -39,6 +39,7 @@ export default function ChatScreen() {
     },
   ]);
   const [inputText, setInputText] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSendMessage = () => {
     if (inputText.trim()) {
@@ -55,6 +56,41 @@ export default function ChatScreen() {
       setInputText('');
     }
   };
+
+  const handleRecruitmentComplete = () => {
+    setIsLoading(true);
+    // 2초 후 홈 페이지로 이동
+    setTimeout(() => {
+      router.push('/');
+      setIsLoading(false);
+    }, 2000);
+  };
+
+  if (isLoading) {
+    return (
+      <ScreenContainer className="bg-background flex-1">
+        <View
+          style={{
+            flex: 1,
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <ActivityIndicator size="large" color={colors.primary} />
+          <Text
+            style={{
+              fontSize: 18,
+              fontWeight: '600',
+              color: colors.foreground,
+              marginTop: 16,
+            }}
+          >
+            야놀자 페이지로 이동 중이에요
+          </Text>
+        </View>
+      </ScreenContainer>
+    );
+  }
 
   return (
     <ScreenContainer className="bg-background flex-1">
@@ -88,6 +124,26 @@ export default function ChatScreen() {
         >
           크루 채팅
         </Text>
+        <Pressable
+          onPress={handleRecruitmentComplete}
+          style={({ pressed }) => ({
+            backgroundColor: '#FFD700',
+            paddingHorizontal: 12,
+            paddingVertical: 6,
+            borderRadius: 6,
+            opacity: pressed ? 0.8 : 1,
+          })}
+        >
+          <Text
+            style={{
+              fontSize: 12,
+              fontWeight: '600',
+              color: '#333333',
+            }}
+          >
+            모집완료
+          </Text>
+        </Pressable>
       </View>
 
       {/* 메시지 리스트 */}
