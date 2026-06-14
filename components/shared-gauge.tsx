@@ -51,7 +51,7 @@ export function SharedGauge({
           style={{
             fontSize: 14,
             fontWeight: '700',
-            color: colors.foreground,
+            color: '#000000',
           }}
         >
           {label}
@@ -60,7 +60,7 @@ export function SharedGauge({
           style={{
             fontSize: 13,
             fontWeight: '600',
-            color: colors.primary,
+            color: '#000000',
           }}
         >
           {current} / {total}
@@ -92,7 +92,7 @@ export function SharedGauge({
         <Text
           style={{
             fontSize: 12,
-            color: colors.muted,
+            color: '#000000',
             marginTop: 6,
           }}
         >
